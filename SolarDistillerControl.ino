@@ -5,13 +5,13 @@
 #include "src/DistillerControl.h"
 #include <PID_v1.h>
 
-#define TIME 2
+#define TIME 1
 
 EzoPmp ezo_pmp;
 DistillerControl control(ezo_pmp);
 
 double set_point, integral, signal, temp_signal, error;
-float kp = 45.7992, ki = 0 , kd = 0.0;
+float kp = 45.7992, ki = 11.45 , kd = 0.0;
 int flag = 0;
 
 float a, b;
@@ -20,7 +20,7 @@ void setup() {
     Serial.begin(9600);
     Serial3.begin(9600);
 
-    set_point = 323.15; //273.15 + 40.0;
+    set_point = 328.15; //273.15 + 40.0;
     integral = 0;
     ezo_pmp.setMaxFlowRate();
 }
@@ -51,6 +51,7 @@ void loop() {
   control.printData();
 
   //ezo_pmp.stopDispensing();
+  //delay(1500);
   /*if (!flag){
     flag = !flag;
     ezo_pmp.dispenseAtFlowRate(40);
