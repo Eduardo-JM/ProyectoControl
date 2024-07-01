@@ -11,7 +11,7 @@ EzoPmp ezo_pmp;
 DistillerControl control(ezo_pmp);
 
 double set_point, integral, signal, temp_signal, error;
-float kp = 0, ki = 0.025 , kd = 0.0;
+float kp = 45.7992, ki = 0 , kd = 0.0;
 int flag = 0;
 
 float a, b;
@@ -36,8 +36,8 @@ void serialEvent3() {
 }
 
 void loop() {
-  /*error = getCurrentError();
-  signal = error * ki * integrateError();
+  error = getCurrentError();
+  signal = error * (kp +  ki * integrateError());
 
   temp_signal = saturateControlSignal(signal);
 
@@ -48,9 +48,9 @@ void loop() {
   ezo_pmp.dispenseAtFlowRate((float) temp_signal);
   Serial.print("Flujo: ");
   Serial.println(temp_signal);
-  control.printData();*/
+  control.printData();
 
-  ezo_pmp.stopDispensing();
+  //ezo_pmp.stopDispensing();
   /*if (!flag){
     flag = !flag;
     ezo_pmp.dispenseAtFlowRate(40);
